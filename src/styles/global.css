@@ -1,0 +1,66 @@
+@import "tailwindcss";
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme variables (keep in sync with tailwind.config.js) */
+:root{
+  --vr-accent: #2af6c5; /* neon teal */
+  --vr-dark: #071022;   /* header/card dark */
+  --bg-purple-1: #2b2333;
+  --bg-purple-2: #3b3042;
+}
+
+/* Page background gradient */
+html,body {
+  height:100%;
+}
+body {
+  background: radial-gradient(1200px 800px at 10% 20%, rgba(39,31,47,0.9), transparent 20%),
+              linear-gradient(180deg, var(--bg-purple-1) 0%, var(--bg-purple-2) 100%);
+  color: #e6e6e6;
+  min-height:100vh;
+}
+
+/* Neon border look used by the card wrapper */
+.neon-card {
+  border-radius: 10px;
+  border: 3px solid var(--vr-accent);
+  box-shadow: 0 6px 24px rgba(10,8,12,0.6), 0 0 18px rgba(42,246,197,0.12);
+  overflow: hidden;
+}
+
+/* Center main content vertically with room for header/footer */
+.app-center {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: calc(100vh - 140px); /* adjust if header/footer height changes */
+  padding: 2rem;
+}
+
+/* Small helper colours for non-tailwind bits */
+.bg-vr-dark { background-color: var(--vr-dark); }
+.bg-vr-accent { background-color: var(--vr-accent); color: #041018; }
+.text-vr-accent { color: var(--vr-accent); }
+
+/* Tweak footer style if needed */
+.site-footer {
+  background: rgba(6,6,8,0.25);
+  padding: 1rem 0;
+  text-align:center;
+  color: #cfcfd6;
+}
+
+/* make inputs slightly translucent like the design */
+.input-translucent {
+  background: rgba(8,12,16,0.45);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #e7eef6;
+}
+
+/* small responsive tweaks */
+@media (min-width:1024px){
+  .container.max-w-lg { max-width:640px; }
+}
