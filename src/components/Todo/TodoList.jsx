@@ -12,7 +12,7 @@ export default function TodoList() {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
 
-  useEffect(() => setTasks(getTasksFromStorage()), []); // ADD EMPTY ARRAY HERE
+  useEffect(() => setTasks(getTasksFromStorage()), []); 
 
   const addTask = (e) => {
     e.preventDefault(); 
@@ -63,9 +63,6 @@ export default function TodoList() {
           </button>
         </form>
       </div>
-
-      {/* GROENE SCHEIDINGSLIJN - REMOVED */}
-      {/* <div class="h-1 bg-vr-accent w-full"></div> */}
 
       {/* 2. DONKERE ONDERKANT (De Lijst) */}
       <div className="bg-purple p-6 min-h-[300px]">
