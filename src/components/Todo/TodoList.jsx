@@ -15,10 +15,23 @@ export default function TodoList() {
   useEffect(() => setTasks(getTasksFromStorage()), []); 
 
   const addTask = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    
+    // Prevent empty tasks
     if (!input.trim()) return;
-    const newId = Date.now();
-    const newTask = { id: newId, text: input.trim(), completed: false };
+
+    // Limit to 10 tasks
+    if (tasks.length >= 10) {
+      alert('Je kan maximaal 10 taken toevoegen');
+      return;
+    }
+    
+    const newTask = {
+      id: Date.now(),
+      text: input,
+      completed: false
+    };
+    
     const updatedTasks = [...tasks, newTask];
     setTasks(updatedTasks);
     saveTasksToStorage(updatedTasks);
@@ -69,7 +82,16 @@ export default function TodoList() {
         
         <div className="mb-4 flex justify-between items-center border-b pb-2">
             <span className="text-gray-500 font-bold text-sm uppercase">Jouw Taken</span>
-            <span className="bg-gray-200 text-gray-600 text-xs py-1 px-2 rounded-full">{tasks.length} items</span>
+            <div className="flex items-center gap-3">
+              {/* Progress bar */}
+              <div className="w-24 h-2 bg-gray-300 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-vr-accent transition-all duration-300"
+                  style={{ width: `${(tasks.length / 10) * 100}%` }}
+                />
+              </div>
+              <span className="bg-gray-200 text-gray-600 text-xs py-1 px-2 rounded-full whitespace-nowrap">{tasks.length}/10</span>
+            </div>
         </div>
 
         {tasks.length === 0 ? (
@@ -86,11 +108,11 @@ export default function TodoList() {
                     task.completed ? 'bg-green-50 border-green-200 opacity-60' : 'bg-gray-50 border-gray-100 hover:shadow-md'
                 }`}
               >
-                <div className="flex items-center flex-grow gap-3">
+                <div className="flex items-center flex-grow gap-3 min-w-0">
                   {/* Checkbox Custom Style */}
                   <div 
                     onClick={() => toggleTask(task.id)}
-                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors ${
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors flex-shrink-0 ${
                         task.completed ? 'bg-vr-accent border-vr-accent' : 'border-gray-300'
                     }`}
                   >
@@ -99,13 +121,14 @@ export default function TodoList() {
 
                   <span 
                     onClick={() => toggleTask(task.id)}
-                    className={`text-lg font-medium cursor-pointer select-none ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'}`}
+                    className={`text-lg font-medium cursor-pointer select-none truncate flex-1 ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'}`}
                   >
                     {task.text}
                   </span>
                 </div>
                 
-                <button onClick={() => deleteTask(task.id)} className="text-gray-300 hover:text-red-500 transition">
+                <button onClick={() => deleteTask(task.id)} className="text-gray-300 hover:text-red-500 transition ml-3 flex-shrink-0">
+
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.728-1.447A1 1 0 0011 2H9zM7 6v10h6V6H7z" clipRule="evenodd" />
                     <path d="M10 12.586l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 11 6.293 8.707a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 011.414 1.414L11.414 11l2.293 2.293a1 1 0 01-1.414 1.414L10 12.586z" />
