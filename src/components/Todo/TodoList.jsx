@@ -1,7 +1,5 @@
-// src/components/Todo/TodoList.jsx
 import { useState, useEffect } from 'preact/hooks';
 
-// ... (Helper functies getTasksFromStorage en saveTasksToStorage blijven hetzelfde als hiervoor) ...
 const getTasksFromStorage = () => {
   const stored = localStorage.getItem('astro_vr_todo_tasks');
   return stored ? JSON.parse(stored) : [];
@@ -17,10 +15,9 @@ export default function TodoList() {
   const addTask = (e) => {
     e.preventDefault();
     
-    // Prevent empty tasks
     if (!input.trim()) return;
 
-    // Limit to 10 tasks
+    // 10 task limit
     if (tasks.length >= 10) {
       alert('Je kan maximaal 10 taken toevoegen');
       return;
@@ -64,12 +61,12 @@ export default function TodoList() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Schrijf hier"
-            // Input styling: Donkergrijs veld
+            // Input styling
             className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent"
           />
           <button
             type="submit"
-            // Knop styling: Fel Mintgroen
+            // Knop styling
             className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition duration-200"
           >
             Toevoegen
