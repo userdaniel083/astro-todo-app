@@ -79,20 +79,20 @@ export default function TodoList() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Schrijf hier"
-                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent"
+                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent transition-all duration-200 hover:border-vr-accent"
               />
               
-              {/* 3 catory knoppen */}
+              {/* 3 category buttons */}
               <div className="flex flex-col gap-2">
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     type="button"
                     onClick={() => setCategory(cat.id)}
-                    className={`p-3 rounded-lg font-semibold transition-all duration-200 ${
+                    className={`p-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
                       category === cat.id
-                        ? 'bg-vr-accent text-vr-dark shadow-lg'
-                        : 'bg-gray-700 text-white hover:bg-gray-600'
+                        ? 'bg-vr-accent text-vr-dark shadow-lg scale-105'
+                        : 'bg-gray-700 text-white hover:bg-gray-600 hover:shadow-md'
                     }`}
                   >
                     {cat.emoji} {cat.label}
@@ -102,7 +102,7 @@ export default function TodoList() {
 
               <button
                 type="submit"
-                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition duration-200 mt-2"
+                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition-all duration-200 mt-2 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
               >
                 Toevoegen
               </button>
@@ -123,13 +123,13 @@ export default function TodoList() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Schrijf hier"
-                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent"
+                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent transition-all duration-200 hover:border-vr-accent"
               />
               
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-vr-accent"
+                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-vr-accent transition-all duration-200 hover:border-vr-accent"
               >
                 <option value="werk">📋 Werk</option>
                 <option value="persoonlijk">👤 Persoonlijk</option>
@@ -138,7 +138,7 @@ export default function TodoList() {
 
               <button
                 type="submit"
-                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition duration-200"
+                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
               >
                 Toevoegen
               </button>
@@ -173,7 +173,7 @@ export default function TodoList() {
                   const catTasks = getTasksByCategory(cat.id);
                   return (
                     <div key={cat.id}>
-                      <h3 className="text-gray-400 font-bold text-xl uppercase mb-3">{cat.label} ({catTasks.length})</h3>
+                      <h3 className="text-gray-400 font-bold text-xl uppercase mb-3 transition-all duration-200 hover:text-vr-accent cursor-pointer">{cat.label} ({catTasks.length})</h3>
                       {catTasks.length === 0 ? (
                         <p className="text-gray-400 text-sm italic ml-2">Geen taken</p>
                       ) : (
@@ -181,15 +181,15 @@ export default function TodoList() {
                           {catTasks.map((task) => (
                             <li 
                               key={task.id} 
-                              className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-200 ${
+                              className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:scale-102 hover:shadow-lg animate-slideIn ${
                                   task.completed ? `${cat.color} opacity-60` : `${cat.color} hover:shadow-md`
                               }`}
                             >
                               <div className="flex items-center flex-grow gap-3 min-w-0">
                                 <div 
                                   onClick={() => toggleTask(task.id)}
-                                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors flex-shrink-0 ${
-                                      task.completed ? 'bg-vr-accent border-vr-accent' : 'border-gray-300'
+                                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center cursor-pointer transition-all duration-300 flex-shrink-0 transform hover:scale-110 ${
+                                      task.completed ? 'bg-vr-accent border-vr-accent' : 'border-gray-300 hover:border-vr-accent'
                                   }`}
                                 >
                                   {task.completed && <span className="text-vr-dark font-bold text-xs">✓</span>}
@@ -197,13 +197,16 @@ export default function TodoList() {
 
                                 <span 
                                   onClick={() => toggleTask(task.id)}
-                                  className={`text-base font-medium cursor-pointer select-none truncate flex-1 ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'}`}
+                                  className={`text-base font-medium cursor-pointer select-none truncate flex-1 transition-all duration-200 ${task.completed ? 'line-through text-gray-400' : 'text-gray-700 hover:text-gray-900'}`}
                                 >
                                   {task.text}
                                 </span>
                               </div>
                               
-                              <button onClick={() => deleteTask(task.id)} className="text-gray-300 hover:text-red-500 transition ml-3 flex-shrink-0">
+                              <button 
+                                onClick={() => deleteTask(task.id)} 
+                                className="text-gray-300 hover:text-red-500 transition-all duration-200 ml-3 flex-shrink-0 transform hover:scale-125 hover:rotate-12 active:scale-75"
+                              >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                   <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.728-1.447A1 1 0 0011 2H9zM7 6v10h6V6H7z" clipRule="evenodd" />
                                   <path d="M10 12.586l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 11 6.293 8.707a1 1 0 011.414-1.414L10 9.586l2.293-2.293a1 1 0 011.414 1.414L11.414 11l2.293 2.293a1 1 0 01-1.414 1.414L10 12.586z" />
