@@ -59,19 +59,19 @@ export default function TodoList() {
   const getTasksByCategory = (cat) => tasks.filter(task => task.category === cat);
 
   const categories = [
-    { id: 'werk', label: 'Werk', color: 'bg-blue-100 border-blue-300' },
-    { id: 'persoonlijk', label: 'Persoonlijk', color: 'bg-purple-100 border-purple-300' },
-    { id: 'vrije-tijd', label: 'Vrije Tijd', color: 'bg-pink-100 border-pink-300' }
+    { id: 'werk', label: 'Werk', emoji: '📋', color: 'bg-blue-100 border-blue-300' },
+    { id: 'persoonlijk', label: 'Persoonlijk', emoji: '👤', color: 'bg-purple-100 border-purple-300' },
+    { id: 'vrije-tijd', label: 'Vrije Tijd', emoji: '🎮', color: 'bg-pink-100 border-pink-300' }
   ];
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
       
-      {/* sidebar */}
+      {/* sidebar deskop */}
       <aside className="hidden lg:block lg:w-80 flex-shrink-0">
         <div className="shadow-2xl rounded-2xl overflow-hidden sticky top-20">
           <div className="bg-vr-dark p-8">
-            <h2 className="text-purple-400 text-sm font-semibold mb-4 uppercase tracking-wider">Nieuwe taak toevoegen...</h2>
+            <h2 className="text-purple-400 text-sm font-semibold mb-6 uppercase tracking-wider">Nieuwe taak toevoegen...</h2>
             
             <form onSubmit={addTask} className="flex flex-col gap-4">
               <input
@@ -82,19 +82,27 @@ export default function TodoList() {
                 className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-vr-accent"
               />
               
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-4 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-vr-accent"
-              >
-                <option value="werk">📋 Werk</option>
-                <option value="persoonlijk">👤 Persoonlijk</option>
-                <option value="vrije-tijd">🎮 Vrije Tijd</option>
-              </select>
+              {/* 3 catory knoppen */}
+              <div className="flex flex-col gap-2">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setCategory(cat.id)}
+                    className={`p-3 rounded-lg font-semibold transition-all duration-200 ${
+                      category === cat.id
+                        ? 'bg-vr-accent text-vr-dark shadow-lg'
+                        : 'bg-gray-700 text-white hover:bg-gray-600'
+                    }`}
+                  >
+                    {cat.emoji} {cat.label}
+                  </button>
+                ))}
+              </div>
 
               <button
                 type="submit"
-                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition duration-200"
+                className="w-full bg-vr-accent text-vr-dark font-bold p-3 rounded-lg hover:bg-white transition duration-200 mt-2"
               >
                 Toevoegen
               </button>
@@ -103,10 +111,8 @@ export default function TodoList() {
         </div>
       </aside>
 
-      {/*  deskop  */}
       <div className="flex-grow">
         
-        {/* mobile input*/}
         <div className="lg:hidden shadow-2xl rounded-2xl overflow-hidden mb-8">
           <div className="bg-vr-dark p-8">
             <h2 className="text-purple-400 text-sm font-semibold mb-4 uppercase tracking-wider">Nieuwe taak toevoegen...</h2>
@@ -140,7 +146,7 @@ export default function TodoList() {
           </div>
         </div>
 
-        {/* taak lijst */}
+        {/* taak lijst*/}
         <div className="shadow-2xl rounded-2xl overflow-hidden">
           <div className="bg-purple p-6 min-h-[300px]">
             
