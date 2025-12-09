@@ -165,7 +165,7 @@ export default function TodoList() {
 
             {tasks.length === 0 ? (
                <div className="text-center py-10">
-                  <p className="text-400 italic">Nog geen taken </p>
+                  <p className="text-gray-400 italic text-base">Nog geen taken</p>
                </div>
             ) : (
               <div className="space-y-6">
@@ -173,7 +173,7 @@ export default function TodoList() {
                   const catTasks = getTasksByCategory(cat.id);
                   return (
                     <div key={cat.id}>
-                      <h3 className="text-gray-400 font-bold text-sm uppercase mb-3">{cat.label} ({catTasks.length})</h3>
+                      <h3 className="text-gray-400 font-bold text-xl uppercase mb-3">{cat.label} ({catTasks.length})</h3>
                       {catTasks.length === 0 ? (
                         <p className="text-gray-400 text-sm italic ml-2">Geen taken</p>
                       ) : (
@@ -197,7 +197,7 @@ export default function TodoList() {
 
                                 <span 
                                   onClick={() => toggleTask(task.id)}
-                                  className={`text-lg font-medium cursor-pointer select-none truncate flex-1 ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'}`}
+                                  className={`text-base font-medium cursor-pointer select-none truncate flex-1 ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'}`}
                                 >
                                   {task.text}
                                 </span>
